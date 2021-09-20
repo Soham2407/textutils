@@ -1,23 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Navbar from "./components/Navbar";
+import TextForm from "./components/TextForm";
 
 function App() {
+  const [mode, setMode] = useState("light");
+  const [theme, setTheme] = useState("default");
+
+  const toggleDarkMode = () => {
+    if (mode === "light") {
+      setMode("dark");
+      document.body.style.backgroundColor = "#121212";
+    } else {
+      setMode("light");
+      document.body.style.backgroundColor = "#FFF";
+    }
+  };
+
+  const selectHandler = (e) => {
+    if (e.target.value === "primary") {
+      setTheme(e.target.value);
+      document.body.style.backgroundColor = "#0d6efd";
+    } else if (e.target.value === "danger") {
+      setTheme(e.target.value);
+      document.body.style.backgroundColor = "#dc3545";
+    } else if (e.target.value === "success") {
+      setTheme(e.target.value);
+      document.body.style.backgroundColor = "#20c997";
+    } else if (e.target.value === "warning") {
+      setTheme(e.target.value);
+      document.body.style.backgroundColor = "#ffc107";
+    } else {
+      setTheme(e.target.value);
+      document.body.style.backgroundColor = "#f8f9fa";
+    }
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Navbar
+        mode={mode}
+        theme={theme}
+        toggleDarkMode={toggleDarkMode}
+        selectHandler={selectHandler}
+      />
+      <TextForm mode={mode} />
     </div>
   );
 }
